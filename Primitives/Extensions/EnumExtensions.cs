@@ -12,7 +12,7 @@ namespace System {
   public static class EnumExtensions {
 
     /// <summary>
-    /// Retrieves the value of the description attribute of an enum member
+    /// Retrieves the value of the <see cref="DescriptionAttribute"/> of an enum member
     /// </summary>
     /// <param name="value">Enum member.</param>
     /// <returns>String</returns>

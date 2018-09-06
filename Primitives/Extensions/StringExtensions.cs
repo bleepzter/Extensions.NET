@@ -312,6 +312,22 @@ namespace System {
     }
 
     /// <summary>
+    /// Gets the bytes out of a string.
+    /// </summary>
+    /// <param name="input">The string.</param>
+    /// <returns>A byte array representing the characters of the string.</returns>
+    public static byte[] ToBytes(this string input) {
+      if(input.IsNullOrEmpty())
+        return new byte[0];
+
+      var bytes = new byte[input.Length * sizeof(char)];
+      Buffer.BlockCopy(input.ToCharArray(), 0, bytes, 0, bytes.Length);
+      
+      return bytes;
+    }
+
+
+    /// <summary>
     /// Indicates if the regex finds a match in the current string
     /// </summary>
     /// <param name="input">The string</param>

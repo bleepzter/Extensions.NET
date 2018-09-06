@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic.Common;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -285,6 +286,55 @@ namespace System.Collections.Generic {
         .ToList();
     }
 
+    /// <summary>
+    /// Creates a new collection from a sequence.
+    /// </summary>
+    /// <typeparam name="T">The type of each item in the sequence</typeparam>
+    /// <param name="sequence">The sequence of items</param>
+    /// <returns>An <see cref="ObservableCollection{T}"/></returns>
+    /// <exception cref="NullReferenceException">If sequence1 is null.</exception>
+    public static Collection<T> ToCollection<T>(this IEnumerable<T> sequence) {
+      
+      if (sequence == null)
+        throw new NullReferenceException(nameof(sequence));
+
+      var collection = new Collection<T>();
+
+      foreach (T item in sequence)
+        collection.Add(item);
+      
+      return collection;
+    }
+
+    /// <summary>
+    /// Creates a new observable collection from a sequence.
+    /// </summary>
+    /// <typeparam name="T">The type of each item in the sequence</typeparam>
+    /// <param name="sequence">The sequence of items</param>
+    /// <returns>An <see cref="ObservableCollection{T}"/></returns>
+    /// <exception cref="NullReferenceException">If sequence1 is null.</exception>
+    public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> sequence) {
+      if(sequence == null)
+        throw new NullReferenceException(nameof(sequence));
+
+      return new ObservableCollection<T>(sequence);
+    }
+
+
+    /// <summary>
+    /// Converts an IEnumerable to a HashSet
+    /// </summary>
+    /// <typeparam name="T">The type of each item in the sequence</typeparam>
+    /// <param name="sequence">The sequence of items</param>
+    /// <returns>An <see cref="HashSet{T}"/></returns>
+    /// <exception cref="NullReferenceException">If sequence1 is null.</exception>
+    public static HashSet<T> ToHashSet<T>(this IEnumerable<T> sequence) {
+
+      if (sequence == null)
+        throw new NullReferenceException(nameof(sequence));
+
+      return new HashSet<T>(sequence);
+    }
   }
 }
 

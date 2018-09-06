@@ -81,7 +81,7 @@ namespace System {
     /// </summary>
     /// <param name="data">The byte array.</param>
     /// <returns><see cref="MemoryStream"/></returns>
-    public static MemoryStream ToMemoryStream(this byte[] data) {
+    public static MemoryStream ToStream(this byte[] data) {
       if (data == null || !data.Any())
         return null;
 
