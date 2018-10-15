@@ -122,6 +122,38 @@ namespace System.Collections.Generic {
     }
 
     /// <summary>
+    /// Left join
+    /// </summary>
+    /// <typeparam name="TLeft">Denotes the type of items in the Left sequence</typeparam>
+    /// <typeparam name="TRight">Denotes the type of items in the right sequence</typeparam>
+    /// <typeparam name="TCommon">Denotes the matching type common between the left and right sequences.</typeparam>
+    /// <typeparam name="TResult">Denotes the type of the result</typeparam>
+    /// <param name="leftSequence">Denotes the left sequence</param>
+    /// <param name="rightSequence">Denotes the right sequence</param>
+    /// <param name="leftSelector">Denotes the selector used to find matching items in the left sequence.</param>
+    /// <param name="rightSelector">Denotes the selector used to find matching items in the right sequence.</param>
+    /// <param name="resultSelector">Denotes the selector used to convert the common matching items between the the left and sequence into the desired result.</param>
+    /// <returns></returns>
+    public static IEnumerable<TResult> LeftOuterJoin<TLeft, TRight, TCommon, TResult>(
+      this IEnumerable<TLeft> leftSequence,
+      IEnumerable<TRight> rightSequence,
+      Func<TLeft, TCommon> leftSelector,
+      Func<TRight, TCommon> rightSelector,
+      Func<TLeft, TRight, TResult> resultSelector)
+      where TLeft : class
+      where TRight : class {
+
+
+      var leftItems = leftSequence.Select(leftSelector)
+        .Except(rightSequence.Select(rightSelector));
+      
+      return leftSequence.Join(rightSequence, leftSelector, rightSelector, resultSelector)
+        .Union(leftSequence.Where(leftItem => leftItems.Contains(leftSelector(leftItem))).Select(lItem => resultSelector(lItem, (TRight)null)));
+
+    }
+
+
+    /// <summary>
     /// Returns the first index of an item in a sequence matching a given condition
     /// </summary>
     /// <typeparam name="T">The type of each item in the sequence</typeparam>

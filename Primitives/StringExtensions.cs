@@ -276,6 +276,7 @@ namespace System {
     /// </summary>
     /// <param name="input">A string</param>
     /// <returns>A hex encoded string representing a MD5 hash.</returns>
+    // ReSharper disable once InconsistentNaming
     public static string ToMD5Hash(this string input) {
       if (input.IsNullOrEmpty())
         return null;
