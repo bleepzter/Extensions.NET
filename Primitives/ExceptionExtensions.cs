@@ -9,7 +9,7 @@ namespace System {
   public static class ExceptionExtensions {
 
     /// <summary>
-    /// Unwraps an exception. Wheather it is an aggregate exception or just an exception - this extension method records the exception type, message, and stacktrace
+    /// Unwraps an exception. Whether it is an aggregate exception or just an exception - this extension method records the exception type, message, and stacktrace
     /// to string. In the case of regular exceptions - it will recursively traverse the inner exceptions and record their details as well.
     /// For aggregate except- inner exceptions are traversed and recorded to get the  complete message/stack trace out of the errors.
     /// </summary>
@@ -28,14 +28,14 @@ namespace System {
       {
         foreach (var innerException in aggregateException.InnerExceptions)
         {
-          ExceptionExtensions.InterogateException(innerException, result);
+          ExceptionExtensions.InterrogateException(innerException, result);
         }
 
         return result.ToString();
       }
 
       var inner = exception.InnerException;
-      ExceptionExtensions.InterogateException(inner, result);
+      ExceptionExtensions.InterrogateException(inner, result);
 
       return result.ToString();
     }
@@ -45,7 +45,7 @@ namespace System {
     /// </summary>
     /// <param name="ex">An exception to unwrap.</param>
     /// <param name="sb">A string builder where to dump the exception details into.</param>
-    private static void InterogateException(Exception ex, StringBuilder sb)
+    private static void InterrogateException(Exception ex, StringBuilder sb)
     {
       var exceptionMessage = ex.Unwrap();
 

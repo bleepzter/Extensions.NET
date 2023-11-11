@@ -9,7 +9,7 @@
     /// <summary>
     /// The predicate that makes the comparisons
     /// </summary>
-    Func<T, T, bool> predicate;
+    readonly Func<T, T, bool> predicate;
 
     public LambdaComparer(Func<T, T, bool> predicate) {
       this.predicate = predicate;

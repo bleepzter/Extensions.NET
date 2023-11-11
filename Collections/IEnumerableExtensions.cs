@@ -185,15 +185,50 @@ namespace System.Collections.Generic {
     }
 
     /// <summary>
-    /// Checks to see if there is an element in the sequence that satisfies a condition
+    /// Returns the last index of an item in a sequence matching a given condition
     /// </summary>
     /// <typeparam name="T">The type of each item in the sequence</typeparam>
     /// <param name="sequence">The sequence of items</param>
     /// <param name="selector">The selector used to find the item</param>
-    /// <returns>A <c>true</c> <see cref="bool"/> value if the sequence contains an element fitting the predicate condition, <c>false</c> otherwise.</returns>
+    /// <returns><see cref="int"/> denoting the index of the item or -1.</returns>
     /// <exception cref="NullReferenceException">If the sequence is null.</exception>
     /// <exception cref="ArgumentNullException">If the selector is null.</exception>
-    public static bool Contains<T>(this IEnumerable<T> sequence, Func<T, bool> selector) {
+    public static int LastIndexOf<T>(this IEnumerable<T> sequence, Func<T, bool> selector)
+    {
+
+	    if (sequence == null)
+		    throw new NullReferenceException(nameof(sequence));
+
+	    if (selector == null)
+		    throw new ArgumentNullException(nameof(selector));
+
+	    int i = 0;
+	    int lastFoundIndex = -1;
+
+	    foreach (var element in sequence)
+	    {
+
+		    if (selector(element))
+		    {
+			    lastFoundIndex = i;
+		    }
+
+		    i += 1;
+	    }
+
+	    return lastFoundIndex;
+    }
+
+		/// <summary>
+		/// Checks to see if there is an element in the sequence that satisfies a condition
+		/// </summary>
+		/// <typeparam name="T">The type of each item in the sequence</typeparam>
+		/// <param name="sequence">The sequence of items</param>
+		/// <param name="selector">The selector used to find the item</param>
+		/// <returns>A <c>true</c> <see cref="bool"/> value if the sequence contains an element fitting the predicate condition, <c>false</c> otherwise.</returns>
+		/// <exception cref="NullReferenceException">If the sequence is null.</exception>
+		/// <exception cref="ArgumentNullException">If the selector is null.</exception>
+		public static bool Contains<T>(this IEnumerable<T> sequence, Func<T, bool> selector) {
 
       if (sequence == null)
         throw new NullReferenceException(nameof(sequence));
@@ -209,8 +244,7 @@ namespace System.Collections.Generic {
     /// </summary>
     /// <typeparam name="T">The type of each item in the sequence</typeparam>
     /// <param name="sequence">The sequence of items</param>
-    /// <param name="comparer">The selector used to find the item</param>
-    /// <param name="comparer">A lamda expression used to test two objects of the same type for equality.</param>
+    /// <param name="comparer">A lambda expression used to test two objects of the same type for equality.</param>
     /// <returns>An <see cref="IEnumerable{T}"/> of distinct elements from the original sequence.</returns>
     /// <exception cref="NullReferenceException">If the sequence is null.</exception>
     /// <exception cref="ArgumentNullException">If the comparer is null.</exception>
@@ -231,7 +265,7 @@ namespace System.Collections.Generic {
     /// <typeparam name="T">The type of each item in the sequence</typeparam>
     /// <param name="sequence1">The first sequence</param>
     /// <param name="sequence2">The second sequence</param>
-    /// <param name="comparer">A lamda expression used to test two objects of the same type for equality.</param>
+    /// <param name="comparer">A lambda expression used to test two objects of the same type for equality.</param>
     /// <returns>An <see cref="IEnumerable{T}"/> of distinct elements from the original sequence.</returns>
     /// <exception cref="NullReferenceException">If sequence1 is null.</exception>
     /// <exception cref="NullReferenceException">If sequence2 is null.</exception>
@@ -256,7 +290,7 @@ namespace System.Collections.Generic {
     /// <typeparam name="T">The type of each item in the sequence</typeparam>
     /// <param name="sequence1">The first sequence</param>
     /// <param name="sequence2">The second sequence</param>
-    /// <param name="comparer">A lamda expression used to test two objects of the same type for equality.</param>
+    /// <param name="comparer">A lambda expression used to test two objects of the same type for equality.</param>
     /// <returns>An <see cref="IEnumerable{T}"/> of distinct elements from the original sequence.</returns>
     /// <exception cref="NullReferenceException">If sequence1 is null.</exception>
     /// <exception cref="NullReferenceException">If sequence2 is null.</exception>
@@ -281,7 +315,7 @@ namespace System.Collections.Generic {
     /// <typeparam name="T">The type of each item in the sequence</typeparam>
     /// <param name="sequence1">The first sequence</param>
     /// <param name="sequence2">The second sequence</param>
-    /// <param name="comparer">A lamda expression used to test two objects of the same type for equality.</param>
+    /// <param name="comparer">A lambda expression used to test two objects of the same type for equality.</param>
     /// <returns>An <see cref="IEnumerable{T}"/> of distinct elements from the original sequence.</returns>
     /// <exception cref="NullReferenceException">If sequence1 is null.</exception>
     /// <exception cref="NullReferenceException">If sequence2 is null.</exception>
@@ -346,6 +380,7 @@ namespace System.Collections.Generic {
     /// <returns>An <see cref="ObservableCollection{T}"/></returns>
     /// <exception cref="NullReferenceException">If sequence1 is null.</exception>
     public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> sequence) {
+
       if(sequence == null)
         throw new NullReferenceException(nameof(sequence));
 

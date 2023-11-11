@@ -30,6 +30,16 @@ namespace System {
     public static bool IsNullOrWhiteSpace(this string input) {
       return string.IsNullOrWhiteSpace(input);
     }
+
+    /// <summary>
+    /// Checks to see if a string is null or empty or white space
+    /// </summary>
+    /// <param name="input">The string</param>
+    /// <returns><c>true</c> if null or empty or white space, <c>false</c> otherwise. </returns>
+		public static bool IsNullOrEmptyOrWhiteSpace(this string input)
+    {
+	    return string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input);
+    }
     
     /// <summary>
     /// Parses a string to an enum value of type T or throws an exception.
@@ -318,7 +328,7 @@ namespace System {
     /// <returns>A byte array representing the characters of the string.</returns>
     public static byte[] ToBytes(this string input) {
       if(input.IsNullOrEmpty())
-        return new byte[0];
+        return Array.Empty<byte>();
 
       return Encoding.ASCII.GetBytes(input);
     }

@@ -18,8 +18,8 @@
       if (dictionary == null)
         throw new NullReferenceException(nameof(dictionary));
 
-      TValue result;
-      return dictionary.TryGetValue(key, out result) ? result : default(TValue);
+      return dictionary.TryGetValue(key, out TValue result) ? result : default(TValue);
+
     }
 
     /// <summary>
@@ -33,11 +33,11 @@
     /// <returns>Returns a value for a given key or if the value (or key) is not found - it returns a user specified value.</returns>
     /// <exception cref="NullReferenceException">If the dictionary is null.</exception>
     public static TValue ValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue) {
-      if(dictionary == null)
+      
+	    if(dictionary == null)
         throw new NullReferenceException(nameof(dictionary));
 
-      TValue result;
-      return dictionary.TryGetValue(key, out result) ? result : defaultValue;
+      return dictionary.TryGetValue(key, out TValue result) ? result : defaultValue;
     }
 
     /// <summary>

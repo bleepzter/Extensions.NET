@@ -20,15 +20,13 @@ namespace System {
 
       var enumType = value.GetType();
 
-      FieldInfo field = null;
+      var field = enumType.GetTypeInfo().GetField(value.ToString());
 
-#if (NET451 || NET452 || NET46 || NET461 || NET462 || NET47 || NET471 || NET472)
-      field = enumType.GetField(value.ToString());
-#elif (NETSTD13 || NETSTD14 || NETSTD15)
-      field = enumType.GetTypeInfo().GetDeclaredField(value.ToString());
-#elif (NETSTD16 || NETSTD20)
-      field = enumType.GetTypeInfo().GetField(value.ToString());
-#endif
+      if (field == null)
+      {
+	      return null;
+      }
+
       var attributes = field.GetCustomAttributes(typeof(DescriptionAttribute), false).ToArray();
 
       return attributes.Length == 0 ? value.ToString() : ((DescriptionAttribute)attributes[0]).Description;
